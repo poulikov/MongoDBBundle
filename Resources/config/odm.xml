@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+  <parameters>
+  </parameters>
+
+  <services>
+    <service id="doctrine_mongo" class="Doctrine\ODM\MongoDB\Mongo">
+        <argument type="string">%mongo.connection%</argument>
+        <argument>%mongo.params%</argument>
+    </service>
+    <service id="doctrine_annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader">
+      <call method="setDefaultAnnotationNamespace"><argument>Doctrine\ODM\MongoDB\Mapping\</argument></call>
+    </service>
+    <service id="doctrine_metadata_driver" class="Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver">
+      <argument type="service" id="doctrine_annotation_reader" />
+    </service>
+    <service id="odm_configuration" class="Doctrine\ODM\MongoDB\Configuration">
+      <call method="setProxyDir"><argument>%kernel.cache_dir%/Proxies</argument></call>
+      <call method="setProxyNamespace"><argument>Proxies</argument></call>
+      <call method="setMetadataDriverImpl">
+        <argument type="service" id="doctrine_metadata_driver" />
+      </call>
+    </service>
+    <service id="document_manager" class="Doctrine\ODM\MongoDB\DocumentManager" constructor="create">
+      <argument type="service" id="doctrine_mongo" />
+      <argument type="service" id="odm_configuration" />
+    </service>
+  </services>
+</container>
