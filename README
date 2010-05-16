@@ -1,0 +1,23 @@
+README
+====
+
+An experimental Symfony 2.x Bundle for using Doctrine\ODM\MongoDB
+
+
+INSTALL
+====
+
+  git clone git://github.com/poulikov/MongoDBBundle.git src/Bundle/MongoDBBundle
+
+edit {application_name}/config/config.yml
+
+  ..
+  mongo.odm: ~
+
+  OR
+
+  mongo.odm:
+    connection: 'mongodb://localhost:27017'
+    params: { connected: true }
+
+Thats it!
