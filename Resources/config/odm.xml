@@ -24,6 +24,8 @@
       <call method="setMetadataDriverImpl">
         <argument type="service" id="doctrine_metadata_driver" />
       </call>
+      <call method="setPrefixDbName"><argument>%mongo.prefix_db_name%</argument></call>
+      <call method="setSuffixDbName"><argument>%mongo.suffix_db_name%</argument></call>
     </service>
     <service id="document_manager" class="Doctrine\ODM\MongoDB\DocumentManager" constructor="create">
       <argument type="service" id="doctrine_mongo" />

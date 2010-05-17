@@ -19,5 +19,22 @@ edit {application_name}/config/config.yml
   mongo.odm:
     connection: 'mongodb://localhost:27017'
     params: { connected: true }
+  
+
+or for dev environment
+# config_dev.yml
+  mongo.odm:
+    connection: 'mongodb://localhost:27017'
+    params: { connected: true }
+    prefix_db_name: dev_
+  # all table names will be prefixed dev_
+
+or for test environment
+# config_test.yml
+  mongo.odm:
+    prefix_db_name: test_
+or
+  mongo.odm:
+    suffix_db_name: _test
 
 Thats it!

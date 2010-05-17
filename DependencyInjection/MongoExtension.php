@@ -24,6 +24,8 @@ class MongoExtension extends LoaderExtension
   {
     $configuration = new BuilderConfiguration();
 
+    $prefixDbName = isset($config['prefix_db_name']) ? $config['prefix_db_name'] : '';
+    $suffixDbName = isset($config['suffix_db_name']) ? $config['suffix_db_name'] : '';
     $defaultConfiguration = array_merge(
         array(
             'connection' => 'mongodb://localhost:27017',
@@ -36,6 +38,8 @@ class MongoExtension extends LoaderExtension
 
     $configuration->setParameter('mongo.connection', $defaultConfiguration['connection']);
     $configuration->setParameter('mongo.params', $defaultConfiguration['params']);
+    $configuration->setParameter('mongo.prefix_db_name', $prefixDbName);
+    $configuration->setParameter('mongo.suffix_db_name', $suffixDbName);
 
     $configuration->merge($loader->load($this->resources['odm']));
 
